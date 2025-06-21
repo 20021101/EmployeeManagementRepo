@@ -11,7 +11,7 @@ This is a full-stack Employee Management System project that includes:
 - HTML / CSS / JavaScript
 - React.js (or your framework)
 
-### ⚙️ Backend:
+### For Backend:
 - laravel
 - MongoDB (or MySQL)
 
@@ -29,9 +29,27 @@ cd frontend
 npm install
 npm start
 
-###  For Backend 
+### ⚙️ Backend (Laravel):
+
+```bash
 cd backend
+
+# Install PHP dependencies
+composer install
+
+# Copy .env file and generate app key
+cp .env.example .env
+php artisan key:generate
+
+# Set up database configuration inside .env
+# Example: DB_DATABASE=your_db_name, DB_USERNAME=root, DB_PASSWORD=
+
+# Run migrations (if applicable)
+php artisan migrate
+
+# Start the local server
 php artisan serve
+
 
 Feel free to reach out at: your-payalvaykhar83@gmail.com
 
