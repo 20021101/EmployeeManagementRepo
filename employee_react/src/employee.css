@@ -1,0 +1,58 @@
+/* Main container */
+.mui-employee-container {
+  padding: 24px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+}
+
+/* Add/Edit Employee Form Layout */
+.employee-form {
+  margin-top: 8px;
+}
+
+/* Grid Row Structure */
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* Each input column */
+.form-col {
+  flex: 1;
+  min-width: 220px;
+}
+
+/* Toolbar at top (Add button) */
+.mui-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin: 16px 0;
+}
+
+/* Action buttons (Edit/Delete/Assign) */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Overlay for loader when submitting */
+.overlay-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Tabs spacing */
+.MuiTabs-root {
+  margin-bottom: 16px;
+}

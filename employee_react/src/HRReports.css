@@ -1,0 +1,77 @@
+.hr-reports-container {
+  background-color: #f8f9fa;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.hr-reports-heading {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #343a40;
+  margin-bottom: 1.5rem;
+}
+
+.hr-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.hr-filter-bar select {
+  flex: 1 1 180px;
+  max-width: 220px;
+  min-width: 140px;
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  max-height: 240px;
+  padding: 0.5rem;
+}
+
+canvas {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+}
+
+.hr-loading {
+  margin-top: 3rem;
+  font-size: 1.2rem;
+  color: #6c757d;
+  text-align: center;
+}
+
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card-body {
+  padding: 1.2rem;
+}
+
+/* Responsive Fixes */
+@media (max-width: 576px) {
+  .hr-filter-bar {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .chart-wrapper {
+    aspect-ratio: 4 / 3;
+    max-height: 200px;
+  }
+
+  .chart-section {
+    margin-bottom: 1.2rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,30 @@
+.attendance-card {
+  background-color: #ffffff;
+  padding: 20px;
+  margin: auto;
+  max-width: 1000px;
+  border-radius: 16px;
+}
+
+.attendance-table {
+  min-width: 700px;
+}
+
+.actions-column {
+  min-width: 120px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .attendance-card {
+    padding: 16px;
+  }
+
+  .attendance-table {
+    font-size: 0.875rem;
+  }
+
+  .actions-column {
+    white-space: nowrap;
+  }
+}

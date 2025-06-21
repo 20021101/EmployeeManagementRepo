@@ -1,0 +1,74 @@
+/* Pink Themed Full-Width Fixed Navbar */
+.custom-navbar {
+  background-color: #ff69b4 !important;
+  color: white;
+  z-index: 1050;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.5rem 1rem;
+}
+
+.custom-navbar .navbar-brand {
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+}
+
+.custom-navbar .navbar-brand:hover {
+  color: #f8f9fa;
+}
+
+.custom-navbar .btn-outline-light {
+  font-size: 14px;
+  padding: 6px 12px;
+  border-color: white;
+  color: white;
+}
+
+.custom-navbar .btn-outline-light:hover {
+  background-color: white;
+  color: #ff69b4;
+}
+
+/* Welcome message */
+.welcome-msg {
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Navbar height spacing fix */
+body {
+  padding-top: 60px;
+}
+
+@media (max-width: 991px) {
+  body {
+    padding-top: 60px;
+  }
+}
+
+/* Card/Grid support */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card-custom {
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.card-custom:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}

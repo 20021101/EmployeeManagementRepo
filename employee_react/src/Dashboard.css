@@ -1,0 +1,32 @@
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #eef2f5;
+  }
+  
+  .welcome-card {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .welcome-card h2 {
+    color: #34495e;
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  
+  .employee-name {
+    color: #3498db;
+  }
+  
+  .success-msg {
+    color: #2ecc71;
+    font-size: 16px;
+    margin-top: 8px;
+    font-weight: 500;
+  }

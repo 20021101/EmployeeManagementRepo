@@ -1,0 +1,21 @@
+.department-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.department-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 576px) {
+  .department-card .btn {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+
+  .form-control-lg,
+  .btn-lg {
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+}

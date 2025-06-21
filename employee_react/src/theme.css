@@ -1,0 +1,61 @@
+/* === GLOBAL COLORS === */
+:root {
+  --primary-pink: #e91e63;
+  --primary-pink-dark: #c2185b;
+  --background: #ffffff;
+  --text-dark: #212121;
+  --text-light: #ffffff;
+  --sidebar-bg: #000000;
+}
+
+/* === Navbar === */
+.navbar {
+  background-color: var(--background) !important;
+  color: var(--text-dark);
+  border-bottom: 1px solid #ddd;
+}
+.navbar .nav-link {
+  color: var(--text-dark) !important;
+  font-weight: 500;
+}
+.navbar .nav-link:hover {
+  color: var(--primary-pink) !important;
+}
+
+/* === Sidebar === */
+.bg-dark {
+  background-color: var(--sidebar-bg) !important;
+}
+.nav-link {
+  color: var(--text-light);
+}
+.nav-link:hover {
+  color: var(--primary-pink);
+}
+
+/* === Dashboard Header === */
+.card-header {
+  background-color: var(--primary-pink) !important;
+  color: var(--text-light);
+}
+
+/* === Tabs === */
+.nav-tabs .nav-link {
+  color: var(--text-dark);
+}
+.nav-tabs .nav-link.active {
+  background-color: var(--primary-pink) !important;
+  color: white !important;
+}
+
+/* === Buttons === */
+button,
+.btn {
+  background-color: var(--primary-pink);
+  color: white;
+  border: none;
+}
+button:hover,
+.btn:hover {
+  background-color: var(--primary-pink-dark);
+}
