@@ -30,7 +30,6 @@ npm install
 npm start
 
 ### ⚙️ Backend (Laravel):
-
 ```bash
 cd backend
 
@@ -51,6 +50,6 @@ php artisan migrate
 php artisan serve
 
 
-Feel free to reach out at: your-payalvaykhar83@gmail.com
+Feel free to reach out at: payalvaykhar83@gmail.com
 
  Thanks for checking out this project!
