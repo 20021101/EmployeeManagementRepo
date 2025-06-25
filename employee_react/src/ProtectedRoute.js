@@ -20,7 +20,7 @@ const ProtectedRoute = () => {
     return <Navigate to="/login" />;
   }
 
-  // ✅ Both admin and employee can access the protected route
+  // Both admin and employee can access the protected route
   return <Outlet />;
 };
 

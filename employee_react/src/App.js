@@ -21,7 +21,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
 
-// ✅ Updated layout using Flexbox
+//  Updated layout using Flexbox
 const Layout = ({ handleLogout, activeTab, setActiveTab }) => (
   <div className="app-layout">
     <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />

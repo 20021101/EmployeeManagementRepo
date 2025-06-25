@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StoreLeaveRequest;
 use App\Http\Requests\UpdateLeaveStatusRequest;
 
+
+
 class LeaveController extends Controller
 {
     //
@@ -53,13 +55,17 @@ class LeaveController extends Controller
             'status' => 'pending',
         ]);
 
-        //  Send email to all admins
-        $admins = Employee::where('role', 'admin')->get();
-        foreach ($admins as $admin) {
-            Mail::raw("New leave request submitted by {$leave->name} from {$leave->start_date} to {$leave->end_date}.\nReason: {$leave->reason}", function ($message) use ($admin) {
-                $message->to($admin->email)
-                    ->subject("New Leave Request");
-            });
+        //  Send email to all admins and HR
+        $managers = Employee::whereIn('role', ['admin', 'hr'])->get();
+
+        foreach ($managers as $manager) {
+            Mail::raw(
+                "New leave request submitted by {$leave->name} from {$leave->start_date} to {$leave->end_date}.\nReason: {$leave->reason}",
+                function ($message) use ($manager) {
+                    $message->to($manager->email)
+                        ->subject("New Leave Request");
+                }
+            );
         }
 
         return response()->json(['message' => 'Leave request submitted. Email sent to all admins and all hr.']);
@@ -107,7 +113,7 @@ class LeaveController extends Controller
         // Find the employee (Admin or HR) who is updating the status
         $handler = Employee::findOrFail($request->admin_id);
 
-        // ✅ Allow both admin and HR to approve/reject
+        // Allow both admin and HR to approve/reject
         if (!in_array($handler->role, ['admin', 'hr'])) {
             return response()->json(['error' => 'Only admin or HR can update leave status.'], 403);
         }
@@ -135,12 +141,25 @@ class LeaveController extends Controller
 
 
 
-    // 7. Delete leave request
+    //  Delete leave request
     public function destroy($id)
     {
         $leave = Leave::findOrFail($id);
         $leave->delete();
 
         return response()->json(['message' => 'Leave deleted successfully']);
+    }
+
+
+    public function hrDashboard()
+    {
+        $pendingLeaves = Leave::where('status', 'pending')->with('employee')->get();
+        $manager = auth()->user();
+
+        if (!$manager) {
+            abort(403, 'Unauthorized');
+        }
+
+        return view('hr_dashboard.pending_leaves', compact('pendingLeaves', 'manager'));
     }
 }

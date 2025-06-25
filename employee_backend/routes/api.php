@@ -35,10 +35,10 @@ Route::middleware('throttle:100,1')->group(function () {
     Route::post('/employees/{id}/assign', [EmployeeController::class, 'assignDetails']);
     // Get employee with relationships
     Route::get('/employees/{id}/with-details', [EmployeeController::class, 'showWithRelations']);
-
+    Route::post('/employees/import', [EmployeeController::class, 'import']);
 
     Route::get('/experience-letter/{employee_id}', [ExperienceLetterController::class, 'generate']);
-    Route::post('/employees/import', [EmployeeController::class, 'import']);
+    
 
 
     // Profile Route
@@ -79,6 +79,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/leaves/{id}/status', [LeaveController::class, 'updateStatus']);
         Route::get('/leaves', [LeaveController::class, 'index']);
         Route::get('/leaves/show/{id}', [LeaveController::class, 'show']);
+        
+
        
 
 

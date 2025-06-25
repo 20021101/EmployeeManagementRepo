@@ -9,7 +9,7 @@ const Navbar = ({ handleLogout }) => {
     <nav className="navbar navbar-expand-lg custom-navbar shadow-sm">
       <div className="container-fluid d-flex align-items-center justify-content-between">
         
-        {/* ☰ Sidebar Toggle */}
+        {/* Sidebar Toggle */}
         <button
           className="btn btn-outline-light d-lg-none me-2"
           type="button"

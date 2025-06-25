@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './employeeLogin.css'; // ensure this import is present
+import './employeeLogin.css'; 
 axios.defaults.withCredentials = true;
 
 
@@ -16,7 +16,7 @@ const EmployeeLogin = ({ setEmployee }) => {
   e.preventDefault();
 
   try {
-    // Get CSRF cookie
+    
     await axios.get('http://localhost:8000/sanctum/csrf-cookie', {
       withCredentials: true,
     });
@@ -38,8 +38,8 @@ const EmployeeLogin = ({ setEmployee }) => {
       localStorage.setItem('employee', JSON.stringify(employeeData));
       setEmployee(employeeData);
 
-      // ✅ Redirect based on role
-      const role = employeeData.role?.toLowerCase(); // just in case it's uppercase
+      //  Redirect based on role
+      const role = employeeData.role?.toLowerCase(); //if role will be uppercase
       if (role === 'hr') {
         navigate('/hr-dashboard');
       } else {

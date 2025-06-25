@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './designation.css'; // Custom styles
+import './designation.css'; 
 
 const DesignationManager = () => {
   const token = localStorage.getItem('employeeToken');

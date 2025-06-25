@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './leave.css';
+axios.defaults.withCredentials = true;
 
 const Leave = ({ employee, role: propRole }) => {
   const [leaves, setLeaves] = useState([]);

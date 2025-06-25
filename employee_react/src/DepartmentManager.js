@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './department.css'; // custom style for animations/cards
+import './department.css'; 
 
 const DepartmentManager = () => {
   const token = localStorage.getItem('employeeToken');

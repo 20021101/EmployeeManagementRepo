@@ -76,7 +76,7 @@ const HRDashboard = () => {
               <>
                 {isHRorAdmin && (
                   <>
-                    {/* ✅ ImportEmployees visible for both HR and Admin now */}
+                    {/*  ImportEmployees visible for both HR and Admin now */}
                     <ImportEmployees onImportDone={() => setRefresh(!refresh)} />
 
                     <Employee
@@ -86,8 +86,8 @@ const HRDashboard = () => {
                       onViewClick={handleViewEmployee}
                     />
                   </>
-                )}
-              </>
+                )}    
+              </>     
             )}
 
             {activeTab === 'attendance' && <Attendance />}

@@ -35,7 +35,7 @@ class AttendanceController extends Controller
             'status.in' => 'Status must be either present, absent, or leave.',
         ]);
 
-        // ✅ Check if attendance for that employee and date already exists
+        // Check if attendance for that employee and date already exists
         $exists = Attendance::where('employee_id', $request->employee_id)
                             ->where('date', $request->date)
                             ->exists();
@@ -82,7 +82,7 @@ class AttendanceController extends Controller
             'status.in' => 'Status must be either present, absent, or leave.',
         ]);
 
-        // ❗ Optional: Prevent duplicate when changing date or employee
+        //  Prevent duplicate when changing date or employee
         $duplicate = Attendance::where('employee_id', $request->employee_id)
             ->where('date', $request->date)
             ->where('id', '!=', $id)

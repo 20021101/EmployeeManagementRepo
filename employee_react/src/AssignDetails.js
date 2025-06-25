@@ -6,7 +6,7 @@ import './AssignDetails.css';
 import { useParams } from 'react-router-dom'; 
 
 function AssignDetails() {
-  const { id: employeeId } = useParams(); // 👈 get employeeId from route
+  const { id: employeeId } = useParams(); // get employeeId from route
   const navigate = useNavigate();
   const token = localStorage.getItem('employeeToken');
   const authHeader = { headers: { Authorization: `Bearer ${token}` } };
@@ -39,7 +39,7 @@ function AssignDetails() {
       setDesignations(desigRes.data);
       setManagers(mgrRes.data);
 
-      const res = await axios.get(`/api/employees/${employeeId}/assigned`, authHeader);
+      const res = await axios.get(`/api/employees/${employeeId}/assign`, authHeader);
       setAssignData({
         department_id: res.data.department_id || '',
         designation_id: res.data.designation_id || '',

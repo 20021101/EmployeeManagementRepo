@@ -6,12 +6,12 @@ function ImportEmployees({ onImportDone }) {
   const [showModal, setShowModal] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [errors, setErrors] = useState([]); // 👈 Error state
+  const [errors, setErrors] = useState([]); 
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
-    setErrors([]); // Reset errors on file change
+    setErrors([]); // when file change resets error
   };
 
   const handleImport = async () => {
@@ -39,7 +39,7 @@ function ImportEmployees({ onImportDone }) {
       const backendErrors = [];
 
       if (error.response?.data?.errors) {
-        // Laravel Validation errors (422)
+        // Laravel Validation errors 
         for (const key in error.response.data.errors) {
           backendErrors.push(...error.response.data.errors[key]);
         }
@@ -49,7 +49,7 @@ function ImportEmployees({ onImportDone }) {
         backendErrors.push('Import failed due to unknown error.');
       }
 
-      setErrors(backendErrors); // 👈 show errors in UI
+      setErrors(backendErrors); //to show errors in UI
     } finally {
       setUploading(false);
     }
@@ -72,7 +72,7 @@ function ImportEmployees({ onImportDone }) {
               onChange={handleFileChange}
             />
 
-            {/* 👇 Show validation errors here */}
+            {/* Show validation errors here */}
             {errors.length > 0 && (
               <div className="alert alert-danger mt-3">   
                 <ul className="mb-0">

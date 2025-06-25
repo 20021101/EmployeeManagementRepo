@@ -64,7 +64,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
 
   return (
     <>
-      {/* ✅ Mobile Toggle Button */}
+      {/* Mobile Toggle Button */}
       <button
         className="btn btn-primary d-lg-none m-2"
         type="button"
@@ -75,7 +75,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         ☰ Menu
       </button>
 
-      {/* ✅ Mobile Offcanvas Sidebar */}
+      {/* Mobile Offcanvas Sidebar */}
       <div
         className="offcanvas offcanvas-start d-lg-none"
         tabIndex="-1"
@@ -97,7 +97,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         </div>
       </div>
 
-      {/* ✅ Desktop Sidebar (hidden on small screens) */}
+      {/* Desktop Sidebar (hidden on small screens) */}
       <div className="sidebar-static d-none d-lg-block">
         <div className="sidebar-title">Dashboard</div>
         <ul className="nav flex-column px-3">
