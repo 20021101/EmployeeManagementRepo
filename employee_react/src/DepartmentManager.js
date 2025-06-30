@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './department.css'; 
+axios.defaults.withCredentials = true;
 
 const DepartmentManager = () => {
   const token = localStorage.getItem('employeeToken');

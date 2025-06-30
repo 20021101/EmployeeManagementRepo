@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './designation.css'; 
+axios.defaults.withCredentials = true;
 
 const DesignationManager = () => {
   const token = localStorage.getItem('employeeToken');

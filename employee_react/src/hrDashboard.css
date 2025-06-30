@@ -1,84 +1,92 @@
-.dashboard-container {
+/* HRDashboard.css */
+.hr-dashboard.dashboard-container {
   display: flex;
-  flex-direction: row;
   min-height: 100vh;
   background-color: #f8f9fa;
 }
 
-.dashboard-wrapper {
+.hr-dashboard .dashboard-wrapper {
   flex: 1;
-  padding: 1rem;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-left: 250px;
 }
 
-.dashboard-header {
+/* Pink Header Styles */
+.hr-dashboard .header-wrapper {
+  width: 100%;
+  padding: 0 1rem;
+  background-color: #f61574;
+}
+
+.hr-dashboard .dashboard-header {
   background-color: #f61574;
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 1.5rem;
   border-radius: 8px;
-  flex-wrap: wrap;
+  margin: 1rem 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.dashboard-header h4 {
+.hr-dashboard .dashboard-header h4 {
   margin: 0;
   font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
 }
 
-.dashboard-header span {
+.hr-dashboard .dashboard-header span {
   font-size: 1rem;
+  color: white;
 }
 
-.dashboard-body {
-  margin-top: 1rem;
+.hr-dashboard .dashboard-body {
+  flex: 1;
+  padding: 0 1rem;
+  background-color: #f8f9fa;
 }
 
-.responsive-card {
+.hr-dashboard .card-responsive {
   background: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
   padding: 1.5rem;
-  max-width: 100%;
-  margin: auto;
-  box-sizing: border-box;
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 1024px) {
-  .dashboard-header {
-    flex-direction: column;
-    align-items: flex-start;
+  .hr-dashboard .dashboard-wrapper {
+    margin-left: 0;
   }
 }
 
 @media (max-width: 768px) {
-  .dashboard-container {
+  .hr-dashboard .dashboard-header {
+    padding: 0.75rem 1rem;
     flex-direction: column;
-  }
-
-  .dashboard-wrapper {
-    padding: 1rem 0.5rem;
-  }
-
-  .dashboard-header {
-    padding: 1rem;
+    align-items: flex-start;
     gap: 0.5rem;
   }
-
-  .responsive-card {
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 8px;
+  
+  .hr-dashboard .dashboard-header h4 {
+    font-size: 1.1rem;
+  }
+  
+  .hr-dashboard .dashboard-header span {
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 576px) {
-  .dashboard-header h4 {
-    font-size: 1rem;
+  .hr-dashboard .dashboard-header {
+    border-radius: 0;
+    margin: 0;
   }
-
-  .dashboard-header span {
-    font-size: 0.9rem;
+  
+  .hr-dashboard .card-responsive {
+    padding: 1rem;
   }
 }

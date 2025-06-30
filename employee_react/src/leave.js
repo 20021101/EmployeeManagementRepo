@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './leave.css';
+import DataTable from 'react-data-table-component';
+
 axios.defaults.withCredentials = true;
 
 const Leave = ({ employee, role: propRole }) => {
@@ -12,6 +14,8 @@ const Leave = ({ employee, role: propRole }) => {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState('');
+  const [filterText, setFilterText] = useState('');
+  const [filterStatus, setFilterStatus] = useState('all');
 
   const token = localStorage.getItem('employeeToken');
   const storedEmployee = JSON.parse(localStorage.getItem('employee'));
@@ -47,7 +51,6 @@ const Leave = ({ employee, role: propRole }) => {
 
   const handleLeaveRequest = async (e) => {
     e.preventDefault();
-
     const today = new Date().setHours(0, 0, 0, 0);
     const start = new Date(startDate).setHours(0, 0, 0, 0);
     const end = new Date(endDate).setHours(0, 0, 0, 0);
@@ -102,91 +105,259 @@ const Leave = ({ employee, role: propRole }) => {
     }
   };
 
+  const renderActionBy = (leave) => {
+    if (!leave.admin_id) return '-';
+    return `${leave.admin?.role || 'user'} ${leave.admin_id}`;
+  };
+
+  const filteredLeaves = leaves.filter(item => {
+    const matchesText = (
+      (item.employee?.name || item.name).toLowerCase().includes(filterText.toLowerCase()) ||
+      item.reason.toLowerCase().includes(filterText.toLowerCase())
+    );
+
+    const matchesStatus = filterStatus === 'all' || item.status === filterStatus;
+
+    return matchesText && matchesStatus;
+  });
+
   if (!employee) return <div className="alert alert-danger">Please log in.</div>;
 
-  return (
-    <div className="container leave-container">
-      <h2 className="text-center mb-4">
-        {['admin', 'hr'].includes(role.toLowerCase()) ? 'All Leave Requests' : 'My Leave Requests'}
-      </h2>
+  const customStyles = {
+    headCells: {
+      style: {
+        paddingLeft: '12px',
+        paddingRight: '12px',
+        backgroundColor: '#f8f9fa',
+        fontWeight: '600',
+        textTransform: 'uppercase',
+        fontSize: '0.75rem',
+      },
+    },
+    cells: {
+      style: {
+        paddingLeft: '12px',
+        paddingRight: '12px',
+        fontSize: '0.875rem',
+      },
+    },
+    rows: {
+      style: {
+        '&:not(:last-of-type)': {
+          borderBottom: '1px solid #eee',
+        },
+      },
+    },
+  };
 
-      {message && (
-        <div className={`alert alert-${messageType} alert-dismissible fade show`} role="alert">
-          {message}
-          <button type="button" className="btn-close" onClick={() => setMessage('')}></button>
+  const calculateDuration = (startDate, endDate) => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = Math.abs(end - start);
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+  };
+
+  const columns = [
+    {
+      name: 'EMPLOYEE',
+      selector: row => row.employee?.name || row.name,
+      sortable: true,
+      cell: row => (
+        <div className="employee-info">
+          <div className="avatar">{row.employee?.name?.charAt(0) || row.name?.charAt(0)}</div>
+          <div>
+            <div className="name">{row.employee?.name || row.name}</div>
+            <div className="id">ID: {row.employee_id}</div>
+          </div>
+        </div>
+      ),
+      minWidth: '200px'
+    },
+    {
+      name: 'LEAVE PERIOD',
+      selector: row => row.start_date,
+      cell: row => (
+        <div className="leave-period">
+          <div className="date">{row.start_date}</div>
+          <div className="separator">to</div>
+          <div className="date">{row.end_date}</div>
+          <div className="duration">
+            {calculateDuration(row.start_date, row.end_date)} days
+          </div>
+        </div>
+      ),
+      minWidth: '180px'
+    },
+    {
+      name: 'REASON',
+      selector: row => row.reason,
+      cell: row => (
+        <div className="reason">
+          {row.reason || '-'}
+        </div>
+      ),
+      minWidth: '250px'
+    },
+    {
+      name: 'STATUS',
+      selector: row => row.status,
+      cell: row => (
+        <div className={`status ${row.status || 'pending'}`}>
+          <span className="status-text">
+            {row.status ? row.status.charAt(0).toUpperCase() + row.status.slice(1) : 'Pending'}
+          </span>
+        </div>
+      ),
+      width: '120px'
+    },
+    {
+      name: 'ACTION BY',
+      selector: row => row.admin_id,
+      cell: row => (
+        <div className="action-by">
+          {renderActionBy(row)}
+        </div>
+      ),
+      width: '150px'
+    },
+    ...(['admin', 'hr'].includes(role.toLowerCase()) ? [{
+      name: 'ACTIONS',
+      cell: row => (
+        <div className="actions">
+          <button 
+            className={`btn-action approve ${row.status === 'approved' ? 'disabled' : ''}`}
+            onClick={() => updateStatus(row.id, 'approved')}
+            disabled={row.status === 'approved'}
+          >
+            Approve
+          </button>
+          <button 
+            className={`btn-action reject ${row.status === 'rejected' ? 'disabled' : ''}`}
+            onClick={() => updateStatus(row.id, 'rejected')}
+            disabled={row.status === 'rejected'}
+          >
+            Reject
+          </button>
+        </div>
+      ),
+      width: '180px'
+    }] : [])
+  ];
+
+  return (
+    <div className="leave-management-container">
+      <div className="header">
+        <h2>
+          <i className="icon calendar"></i>
+          {['admin', 'hr'].includes(role.toLowerCase()) ? 'Leave Management Dashboard' : 'My Leave Requests'}
+        </h2>
+        <div className="controls">
+          <div className="search-box">
+            <i className="icon search"></i>
+            <input 
+              type="text" 
+              placeholder="Search by name or reason..." 
+              value={filterText}
+              onChange={e => setFilterText(e.target.value)}
+            />
+          </div>
+          <select
+            value={filterStatus}
+            onChange={e => setFilterStatus(e.target.value)}
+          >
+            <option value="all">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </div>
+      </div>
+
+      {!['admin', 'hr'].includes(role.toLowerCase()) && (
+        <div className="request-form">
+          <h4>New Leave Request</h4>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Start Date</label>
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>End Date</label>
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group reason">
+              <label>Reason</label>
+              <input
+                type="text"
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+                required
+              />
+            </div>
+            <button 
+              type="button" 
+              className="submit-btn"
+              onClick={handleLeaveRequest}
+            >
+              Apply For Leave
+            </button>
+          </div>
         </div>
       )}
 
-      {error && <div className="alert alert-warning">{error}</div>}
-
-      {!['admin', 'hr'].includes(role.toLowerCase()) && (
-        <form onSubmit={handleLeaveRequest} className="row g-3 mb-4 leave-form">
-          <div className="col-md-4">
-            <label className="form-label">Start Date</label>
-            <input
-              type="date"
-              className="form-control"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-4">
-            <label className="form-label">End Date</label>
-            <input
-              type="date"
-              className="form-control"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-md-4">
-            <label className="form-label">Reason</label>
-            <input
-              type="text"
-              className="form-control"
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-12">
-            <button type="submit" className="btn btn-primary w-100">
-              Apply for Leave
-            </button>
-          </div>
-        </form>
+      {message && (
+        <div className={`alert-message ${messageType}`}>
+          {message}
+          <span className="close" onClick={() => setMessage('')}>×</span>
+        </div>
       )}
 
-      <div className="leave-cards">
-        {leaves.length > 0 ? (
-          leaves.map((leave) => (
-            <div className="leave-card" key={leave.id}>
-              <p><strong>Name:</strong> {leave.employee?.name || leave.name}</p>
-              <p><strong>Start:</strong> {leave.start_date}</p>
-              <p><strong>End:</strong> {leave.end_date}</p>
-              <p><strong>Reason:</strong> {leave.reason}</p>
-              <p className={`fw-bold text-${leave.status === 'approved' ? 'success' : leave.status === 'rejected' ? 'danger' : 'warning'}`}>
-                <strong>Status:</strong> {leave.status}
-              </p>
-              <p><strong>Handled By (ID):</strong> {leave.admin_id || '—'}</p>
+      {error && <div className="error-message">{error}</div>}
 
-              {['admin', 'hr'].includes(role.toLowerCase()) && (
-                <div className="d-flex gap-2 mt-3">
-                  <button className="btn btn-success btn-sm" onClick={() => updateStatus(leave.id, 'approved')}>
-                    Approve
-                  </button>
-                  <button className="btn btn-danger btn-sm" onClick={() => updateStatus(leave.id, 'rejected')}>
-                    Reject
-                  </button>
-                </div>
-              )}
+      <div className="leave-table-container">
+        <DataTable
+          columns={columns}
+          data={filteredLeaves}
+          pagination
+          paginationPerPage={10}
+          paginationRowsPerPageOptions={[5, 10, 15]}
+          customStyles={{
+            headCells: {
+              style: {
+                backgroundColor: '#f8fafc',
+                fontWeight: 600,
+                fontSize: '14px',
+                color: '#64748b',
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              },
+            },
+            cells: {
+              style: {
+                paddingTop: '12px',
+                paddingBottom: '12px',
+              },
+            },
+          }}
+          highlightOnHover
+          striped
+          noDataComponent={
+            <div className="no-data">
+              <i className="icon calendar-x"></i>
+              <p>No leave records found</p>
             </div>
-          ))
-        ) : (
-          <div className="text-center mt-4">No leave records found.</div>
-        )}
+          }
+        />
       </div>
     </div>
   );

@@ -19,14 +19,14 @@ class LeaveController extends Controller
     //
     public function index(Request $request)
     {
-        $user = auth()->user(); // Logged-in user
+        $user = auth()->user();
 
         if (in_array($user->role, ['admin', 'hr'])) {
-
-            return Leave::with('employee')->orderBy('created_at', 'desc')->get();
+            return Leave::with(['employee', 'admin:id,role'])
+                ->orderBy('created_at', 'desc')
+                ->get();
         } else {
-
-            return Leave::with('employee')
+            return Leave::with(['employee', 'admin:id,role'])
                 ->where('employee_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->get();

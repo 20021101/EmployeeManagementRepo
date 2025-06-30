@@ -1,77 +1,449 @@
-.hr-reports-container {
-  background-color: #f8f9fa;
+/* Base Styles */
+.hr-dashboard-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8fafc;
+  min-height: 100vh;
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.hr-reports-heading {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #343a40;
+/* Header Styles */
+.dashboard-header {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   margin-bottom: 1.5rem;
+  padding: 1.5rem;
 }
 
-.hr-filter-bar {
+.header-content {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-.hr-filter-bar select {
-  flex: 1 1 180px;
-  max-width: 220px;
-  min-width: 140px;
+.header-content h1 {
+  color: #2d3748;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0;
 }
 
-.chart-wrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  max-height: 240px;
-  padding: 0.5rem;
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-canvas {
-  width: 100% !important;
-  height: auto !important;
-  display: block;
+.date-filters {
+  display: flex;
+  gap: 0.5rem;
 }
 
-.hr-loading {
-  margin-top: 3rem;
-  font-size: 1.2rem;
-  color: #6c757d;
-  text-align: center;
+.form-select-sm {
+  padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
 }
 
-.card {
-  border-radius: 12px;
+.refresh-btn {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: color 0.2s;
+}
+
+.refresh-btn:hover {
+  color: #334155;
+}
+
+.secondary-filters {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-select {
+  padding: 0.5rem 2.25rem 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  flex: 1;
+}
+
+/* Table Styles */
+.data-table-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   overflow: hidden;
 }
 
-.card-body {
-  padding: 1.2rem;
+.employee-data-table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-/* Responsive Fixes */
-@media (max-width: 576px) {
-  .hr-filter-bar {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
+.employee-data-table thead {
+  background-color: #f1f5f9;
+}
 
-  .chart-wrapper {
-    aspect-ratio: 4 / 3;
-    max-height: 200px;
-  }
+.employee-data-table th {
+  padding: 1rem;
+  text-align: left;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #e2e8f0;
+}
 
-  .chart-section {
-    margin-bottom: 1.2rem;
-  }
+.employee-data-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
 
-  .card-body {
+/* Employee Cell */
+.employee-cell {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.employee-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #6366f1;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.employee-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.employee-name {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.employee-id {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.employee-dept {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+}
+
+/* Attendance Cell */
+.attendance-progress {
+  height: 6px;
+  background-color: #e2e8f0;
+  border-radius: 3px;
+  margin-bottom: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 3px;
+  background-color: #10b981;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.progress-bar::after {
+  content: attr(data-percentage) "%";
+  position: absolute;
+  right: 0.25rem;
+  top: -1.5rem;
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.attendance-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.stat-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.stat-value.present {
+  color: #10b981;
+}
+
+.stat-value.absent {
+  color: #ef4444;
+}
+
+.stat-value.leave {
+  color: #f59e0b;
+}
+
+/* Leave Cell */
+.leave-badges {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.badge.approved {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.badge.pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.badge.rejected {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* Salary Cell */
+.salary-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.salary-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.salary-item span:first-child {
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+.salary-item span:last-child {
+  font-weight: 500;
+}
+
+.base-salary {
+  color: #3b82f6;
+}
+
+.deductions {
+  color: #ef4444;
+}
+
+.salary-item.net {
+  margin-top: 0.25rem;
+  padding-top: 0.25rem;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.net-salary {
+  color: #10b981;
+  font-weight: 600;
+}
+
+/* Actions Cell */
+.actions-cell {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background-color: #f1f5f9;
+}
+
+.action-btn i {
+  font-size: 1rem;
+}
+
+.action-btn.view {
+  color: #3b82f6;
+}
+
+.action-btn.download {
+  color: #10b981;
+}
+
+/* No Data Row */
+.no-data-row td {
+  padding: 2rem;
+  text-align: center;
+}
+
+.no-data-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: #64748b;
+}
+
+.no-data-content i {
+  font-size: 2rem;
+  color: #94a3b8;
+}
+
+/* Pagination */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.pagination-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pagination-btn:hover:not(.disabled) {
+  background-color: #f1f5f9;
+}
+
+.pagination-btn.active {
+  background-color: #6366f1;
+  color: white;
+  border-color: #6366f1;
+}
+
+.pagination-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #6366f1;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-state p {
+  color: #64748b;
+  margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .employee-data-table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
     padding: 1rem;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .secondary-filters {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .attendance-stats {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .leave-badges {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .actions-cell {
+    flex-direction: column;
+    gap: 0.25rem;
   }
 }

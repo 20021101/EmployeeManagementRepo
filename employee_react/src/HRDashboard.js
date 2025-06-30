@@ -58,14 +58,17 @@ const HRDashboard = () => {
   };
 
   return (
-    <div className="container-fluid p-0">
+    <div className="dashboard-container">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="dashboard-wrapper">
-        <div className="dashboard-header">
-          <h4>HR Dashboard</h4>
-          <span>
-            Welcome, <strong>{employee.name}</strong> ({employee.role})
-          </span>
+        {/* Added header-wrapper div for better control */}
+        <div className="header-wrapper">
+          <div className="dashboard-header">
+            <h4>HR Dashboard</h4>
+            <span>
+              Welcome, <strong>{employee.name}</strong> ({employee.role})
+            </span>
+          </div>
         </div>
 
         <div className="dashboard-body">
