@@ -40,6 +40,12 @@ class Employee extends Authenticatable
     {
         return $this->belongsTo(Employee::class, 'manager_id');
     }
+    public function salaries()
+    {
+        return $this->hasMany(Salary::class);
+    
+    }
+
 
     // Relationship with subordinates (one manager has many subordinates)
     public function subordinates()

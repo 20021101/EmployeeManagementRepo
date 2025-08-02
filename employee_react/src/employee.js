@@ -141,22 +141,23 @@ function Employee({ employeeRole = "employee", refresh, onViewClick }) {
     }
   };
 
-  const handleDownloadLetter = async (id) => {
+  const handleDownloadLetter = async (id, type) => {
     try {
-      const response = await axios.get(`/api/experience-letter/${id}`, {
-        responseType: 'blob', headers
+      const response = await axios.get(`/api/letter/${type}/${id}`, {
+        responseType: 'blob',
+        headers
       });
       const blob = new Blob([response.data], { type: 'application/pdf' });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `Experience_Letter_${id}.pdf`);
+      link.setAttribute('download', `${type}_letter_${id}.pdf`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch (error) {
       console.error('Download error:', error);
-      alert('Failed to download experience letter.');
+      alert(`Failed to download ${type} letter.`);
     }
   };
 
@@ -195,7 +196,20 @@ function Employee({ employeeRole = "employee", refresh, onViewClick }) {
                 )}
                 {isHRorAdmin && (
                   <>
-                    <Button size="small" onClick={() => handleDownloadLetter(row.id)}>Letter</Button>
+                    {/* ✅ Replaced Letter button with dropdown */}
+                    <FormControl size="small" style={{ minWidth: 140 }}>
+                      <Select
+                        displayEmpty
+                        value=""
+                        onChange={(e) => handleDownloadLetter(row.id, e.target.value)}
+                        renderValue={() => "Download PDF"}
+                      >
+                        <MenuItem value="experience">Experience Letter</MenuItem>
+                        <MenuItem value="offer">Offer Letter</MenuItem>
+                        <MenuItem value="increment">Increment Letter</MenuItem>
+                        <MenuItem value="internship">Internship Letter</MenuItem>
+                      </Select>
+                    </FormControl>
                     <Button size="small" onClick={() => navigate(`/employee/${row.id}/assign`)}>Assign</Button>
                   </>
                 )}
@@ -244,10 +258,20 @@ function Employee({ employeeRole = "employee", refresh, onViewClick }) {
         />
       </div>
 
-      <Dialog open={modalOpen} onClose={() => setModalOpen(false)} maxWidth="md" fullWidth>
+      <Dialog
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        maxWidth="md"
+        fullWidth
+        fullScreen={window.innerWidth < 600}
+      >
         <DialogTitle>{editingId ? 'Edit Employee' : 'Add Employee'}</DialogTitle>
         <form onSubmit={handleSubmit}>
-          <DialogContent dividers className="employee-form">
+          <DialogContent
+            dividers
+            className="employee-form"
+            style={{ maxHeight: '70vh', overflowY: 'auto' }}
+          >
             <div className="form-row">
               <TextField label="Name" name="name" value={formData.name} onChange={handleChange} required className="form-col" />
               <TextField label="Email" name="email" value={formData.email} onChange={handleChange} required className="form-col" />

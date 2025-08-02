@@ -13,8 +13,30 @@ class Attendance extends Model
         'employee_id',
         'date',
         'status',
+        'check_in',
+        'check_out',
+        'break_in',
+        'break_out',
+        'breaks',
+        'total_hours',
+        'is_regularized',
+        'regularize_status',
+        'regularize_reason',
+        'requested_check_in',
+        'requested_check_out',
+        'approved_by',
+        'approved_at',
+        'day_type',
+
     ];
-    public function employee() {
+
+    protected $casts = [
+        'date' => 'date:Y-m-d',
+        'breaks' => 'array',
+    ];
+
+    public function employee()
+    {
         return $this->belongsTo(Employee::class);
     }
 }

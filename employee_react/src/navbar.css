@@ -1,74 +1,94 @@
-/* Pink Themed Full-Width Fixed Navbar */
+:root {
+  --navbar-bg: #5e35b1;
+  --navbar-hover: #7e57c2;
+  --navbar-text: #ffffff;
+  --navbar-shadow: rgba(0, 0, 0, 0.1);
+  --logout-bg: transparent;
+  --logout-border: #ffffff;
+  --logout-hover-bg: #ffffff;
+  --logout-hover-text: #5e35b1;
+}
+
+/* === Fixed Top Navbar === */
 .custom-navbar {
-  background-color: #ff69b4 !important;
-  color: white;
+  background-color: var(--navbar-bg) !important;
+  color: var(--navbar-text);
   z-index: 1050;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1rem;
+  margin-bottom: 0 !important;
+  box-shadow: 0 2px 6px var(--navbar-shadow);
 }
 
 .custom-navbar .navbar-brand {
   font-weight: 600;
   font-size: 18px;
-  color: white;
+  color: var(--navbar-text);
   text-decoration: none;
 }
 
 .custom-navbar .navbar-brand:hover {
-  color: #f8f9fa;
+  color: #e0e0ff;
 }
 
-.custom-navbar .btn-outline-light {
+.toggle-btn {
+  background-color: var(--navbar-hover);
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 18px;
+}
+
+.toggle-btn:hover {
+  background-color: #6746c3;
+}
+
+/* === Logout Button === */
+.logout-btn {
+  background-color: var(--logout-bg);
+  color: var(--navbar-text);
+  border: 1px solid var(--logout-border);
   font-size: 14px;
   padding: 6px 12px;
-  border-color: white;
-  color: white;
+  border-radius: 6px;
+  transition: all 0.3s ease;
 }
 
-.custom-navbar .btn-outline-light:hover {
-  background-color: white;
-  color: #ff69b4;
+.logout-btn:hover {
+  background-color: var(--logout-hover-bg);
+  color: var(--logout-hover-text);
+  border-color: var(--logout-hover-bg);
 }
 
-/* Welcome message */
+/* === Welcome Message === */
 .welcome-msg {
-  max-width: 150px;
+  color: var(--navbar-text);
+  font-size: 15px;
+  margin-right: 10px;
+  max-width: 200px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Navbar height spacing fix */
+/* === Padding Adjustment for Page === */
 body {
-  padding-top: 60px;
+  padding-top: 0 !important;
+
 }
 
 @media (max-width: 991px) {
   body {
-    padding-top: 60px;
+     padding-top: 0 !important;
   }
 }
 
-/* Card/Grid support */
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-  padding: 20px;
+.navbar-employee-info {
+  color: #333; /* Dark gray or change to black (#000) if needed */
+  font-weight: 500;
 }
 
-.card-custom {
-  background: #fff;
-  border: 1px solid #e3e3e3;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.3s ease;
-}
-
-.card-custom:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
-import Sidebar from './sidebar';
 import Employee from './employee';
 import Attendance from './attendance';
 import Leave from './leave';
@@ -13,7 +12,9 @@ import DesignationManager from './DesignationManager';
 import AssignDetails from './AssignDetails';
 import MyDetails from './MyDetails';
 import HRReports from './HRReports';
+import './HRAnalytics';
 import './employeeDashboard.css';
+import HRAnalytics from './HRAnalytics';
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://localhost:8000';
 
@@ -58,15 +59,14 @@ const HRDashboard = () => {
   };
 
   return (
-    <div className="dashboard-container">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-      <div className="dashboard-wrapper">
+    <div className="hr-dashboard-container">
+    <div className="hr-dashboard-wrapper">
         {/* Added header-wrapper div for better control */}
         <div className="header-wrapper">
           <div className="dashboard-header">
             <h4>HR Dashboard</h4>
             <span>
-              Welcome, <strong>{employee.name}</strong> ({employee.role})
+              Welcome,<strong>{employee.name}</strong> ({employee.role})
             </span>
           </div>
         </div>
@@ -101,6 +101,7 @@ const HRDashboard = () => {
             {activeTab === 'assign' && isHRorAdmin && <AssignDetails employeeId={selectedEmployeeId} />}
             {activeTab === 'mydetails' && <MyDetails employeeId={selectedEmployeeId} />}
             {activeTab === 'hrreports' && <HRReports />}
+            {activeTab === 'hranalytics' && <HRAnalytics/>}
           </div>
         </div>
       </div>

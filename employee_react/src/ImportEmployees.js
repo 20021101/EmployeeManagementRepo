@@ -1,17 +1,17 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import './modal.css';
+import './importmodal.css';
 
 function ImportEmployees({ onImportDone }) {
   const [showModal, setShowModal] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [errors, setErrors] = useState([]); 
+  const [errors, setErrors] = useState([]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
-    setErrors([]); // when file change resets error
+    setErrors([]);
   };
 
   const handleImport = async () => {
@@ -39,7 +39,6 @@ function ImportEmployees({ onImportDone }) {
       const backendErrors = [];
 
       if (error.response?.data?.errors) {
-        // Laravel Validation errors 
         for (const key in error.response.data.errors) {
           backendErrors.push(...error.response.data.errors[key]);
         }
@@ -49,7 +48,7 @@ function ImportEmployees({ onImportDone }) {
         backendErrors.push('Import failed due to unknown error.');
       }
 
-      setErrors(backendErrors); //to show errors in UI
+      setErrors(backendErrors);
     } finally {
       setUploading(false);
     }
@@ -72,9 +71,8 @@ function ImportEmployees({ onImportDone }) {
               onChange={handleFileChange}
             />
 
-            {/* Show validation errors here */}
             {errors.length > 0 && (
-              <div className="alert alert-danger mt-3">   
+              <div className="alert alert-danger mt-3">
                 <ul className="mb-0">
                   {errors.map((err, i) => (
                     <li key={i}>{err}</li>
@@ -83,8 +81,8 @@ function ImportEmployees({ onImportDone }) {
               </div>
             )}
 
-            <div className="modal-actions mt-3">
-              <button className="btn btn-secondary me-2" onClick={() => setShowModal(false)}>
+            <div className="modal-actions">
+              <button className="btn btn-secondary" onClick={() => setShowModal(false)}>
                 Cancel
               </button>
               <button className="btn btn-success" onClick={handleImport} disabled={uploading}>

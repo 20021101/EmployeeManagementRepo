@@ -1,65 +1,78 @@
 .dashboard-wrapper {
-  margin-left: 220px;
-  background: #f9f9f9;
+  
+  background: #f5f3fa;
   min-height: 100vh;
-  padding: 1rem;
+  padding: 0.5rem 1.25rem 1.25rem 1.25rem;
   box-sizing: border-box;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .dashboard-header {
-  background-color: #f61574;
-  color: white;
+  background: linear-gradient(90deg, #6a11cb 0%, #a044ff 100%);
+  color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
+  padding: 1rem;
+   margin-top: 0;
+  border-radius: 12px;
   margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(106, 17, 203, 0.3);
 }
 
 .dashboard-header h4 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .dashboard-header span {
   font-size: 1rem;
+  font-weight: 400;
 }
 
 .dashboard-body {
   padding: 1rem 0.5rem;
+  
 }
 
 .card-responsive {
-  background: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  border-radius: 10px;
-  padding: 1.5rem;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(160, 68, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
   max-width: 100%;
   margin: 0 auto;
   transition: all 0.3s ease;
+  border: 1px solid #e2d6fa;
+}
+
+.card-responsive h5 {
+  color: #6a11cb;
+  font-weight: 600;
 }
 
 @media (min-width: 768px) {
   .card-responsive {
-    max-width: 900px;
+    max-width: 950px;
   }
 }
 
 @media (max-width: 768px) {
   .dashboard-wrapper {
     margin-left: 0;
-    padding: 0.5rem;
+    padding: 0.75rem;
   }
 
   .dashboard-header {
     flex-direction: column;
     align-items: flex-start;
     padding: 1rem;
+    text-align: left;
   }
 
   .card-responsive {
-    padding: 1rem;
+    padding: 1.25rem;
     margin: 0.5rem;
   }
 }

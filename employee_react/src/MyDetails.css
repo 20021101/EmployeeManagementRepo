@@ -13,11 +13,11 @@
 }
 
 .details-card {
-  background-color: #fff;
+  background-color: #f8f5ff;
   border-radius: 16px;
   padding: 2rem;
   width: 100%;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.1);
   overflow-x: auto;
   transition: all 0.3s ease-in-out;
 }
@@ -27,7 +27,7 @@
   font-weight: 700;
   margin-bottom: 1.5rem;
   text-align: center;
-  color: #2a9d8f;
+  color: #7c3aed;
 }
 
 .details-table-wrapper {
@@ -44,14 +44,18 @@
 .details-table td {
   text-align: left;
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid #ddd6fe;
   white-space: nowrap;
   vertical-align: top;
 }
 
+.details-table tr:nth-child(even) {
+  background-color: #f3e8ff;
+}
+
 .details-table th {
   font-weight: 600;
-  color: #333;
+  color: #4c1d95;
   width: 35%;
 }
 
@@ -59,9 +63,9 @@
   width: 100%;
   padding: 0.5rem 0.7rem;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #c4b5fd;
   border-radius: 6px;
-  background-color: #f9f9f9;
+  background-color: #f5f3ff;
 }
 
 .details-buttons {
@@ -84,30 +88,30 @@
 }
 
 .btn-primary {
-  background-color: #2a9d8f;
+  background-color: #7c3aed;
   color: white;
 }
 
 .btn-primary:hover {
-  background-color: #21867a;
+  background-color: #6d28d9;
 }
 
 .btn-success {
-  background-color: #16a34a;
+  background-color: #22c55e;
   color: white;
 }
 
 .btn-success:hover {
-  background-color: #15803d;
+  background-color: #16a34a;
 }
 
 .btn-secondary {
-  background-color: #6b7280;
+  background-color: #64748b;
   color: white;
 }
 
 .btn-secondary:hover {
-  background-color: #4b5563;
+  background-color: #475569;
 }
 
 /* Responsive Design */

@@ -1,103 +1,106 @@
-/* ===== General Nav Link Styling ===== */
-.nav-link {
-  color: #fff;
-  background-color: transparent;
-  border: none;
-  padding: 12px 20px;
-  font-size: 16px;
-  text-align: left;
-  border-radius: 6px;
-  width: 100%;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  appearance: none;
-  -webkit-appearance: none;
+:root {
+  --primary-purple: #7e57c2;
+  --primary-purple-dark: #5e35b1;
+  --sidebar-bg: #453c67;
+  --text-light: #ffffff;
+  --text-dark: #2c2c3e;
+  --offcanvas-bg: #4d4178;
+  --hover-bg: #6b5da5;
+  --active-bg: #7e57c2;
+  --border-light: rgba(255, 255, 255, 0.2);
 }
 
-.nav-link:focus,
-.nav-link:active,
-.nav-link:hover,
+/* ===== Nav Link Styling ===== */
+.nav-link {
+  color: var(--text-light);
+  background-color: transparent;
+  border: none;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  border-radius: 8px;
+  width: 100%;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: var(--hover-bg); 
+  color: #f1f1f1 !important;  
+}
+
 .nav-link.active {
-  background-color: #e91e63;
-  color: #fff !important;
-  font-weight: 600;
-  text-decoration: none;
-  outline: none;
-  box-shadow: none;
+ background-color: var(--active-bg); 
+ color: #ffffff !important;
+ font-weight: 600;
 }
 
 /* ===== Mobile Offcanvas Sidebar ===== */
 .offcanvas {
-  background-color: #000 !important;
+  background-color: var(--offcanvas-bg) !important;
 }
 
 .offcanvas-header {
   padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--border-light);
+}
+.offcanvas-body {
+  padding-bottom: 50px;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .offcanvas-title {
-  color: #fff;
+  color: var(--text-light);
   font-size: 1.2rem;
   font-weight: 600;
 }
 
-/* ===== Static Sidebar for Desktop ===== */
+.btn-close {
+  filter: invert(1);
+}
+
+/* ===== Desktop Sidebar ===== */
 .sidebar-static {
-  width: 220px;
-  background-color: #000;
+  width: 230px;
+  background-color: var(--sidebar-bg);
   height: 100vh;
   position: fixed;
-  top: 60px; /* Match your navbar height */
+  top: 60px;
   left: 0;
   overflow-y: auto;
   z-index: 1040;
   padding-top: 10px;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+.sidebar-static .nav-link:first-of-type {
+  margin-top: 12px; 
 }
 
 .sidebar-title {
   text-align: center;
-  color: #fff;
+  color: var(--text-light);
   font-weight: bold;
   padding: 20px 0;
   font-size: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid var(--border-light);
+}
+.main-area {
+  margin-left: 230px;
+  margin-top: 60px; /* same as navbar height */
+  padding: 20px;
 }
 
-/* ===== Layout Shift for Main Content on Desktop ===== */
+/* ===== Main Content Layout Shift ===== */
 @media (min-width: 992px) {
-  .main-content {
-    margin-left: 220px;
+  .main-area{
+    margin-left: 230px;
     padding: 20px;
   }
 }
 
-/* ===== Hide Static Sidebar on Mobile ===== */
 @media (max-width: 991.98px) {
   .sidebar-static {
     display: none !important;
   }
-}
-
-/* ===== Layout for Cards and Content ===== */
-.content-wrapper {
-  padding: 1rem;
-}
-
-.cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-}
-
-.card-custom {
-  background: #fff;
-  border: 1px solid #e3e3e3;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: box-shadow 0.3s ease;
-}
-
-.card-custom:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }

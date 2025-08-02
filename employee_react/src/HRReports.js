@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './HRReports.css';
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'http://localhost:8000';
+
 
 const HRReports = () => {
   const [employees, setEmployees] = useState([]);
-  const [reports, setReports] = useState({});
+  const [reports, setReports] = useState({});  
   const [loading, setLoading] = useState(true);
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
@@ -19,8 +22,14 @@ const HRReports = () => {
   const fetchMonthlyReport = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/api/hr/monthly-report?month=${month}&year=${year}`,
-        authHeader
+        `http://localhost:8000/api/hr/monthly-report?month=${month}&year=${year}`, 
+        {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    withCredentials: true,
+  }
+
       );
       const sortedEmployees = res.data.sort((a, b) => a.employee.id - b.employee.id);
       const empList = sortedEmployees.map(r => r.employee);
@@ -76,7 +85,7 @@ const HRReports = () => {
 
   return (
     <div className="hr-dashboard-container">
-      <div className="dashboard-header">
+      <div className="hrreport-header">
         <div className="header-content">
           <h1>HR Monthly Reports</h1>
           <div className="header-actions">

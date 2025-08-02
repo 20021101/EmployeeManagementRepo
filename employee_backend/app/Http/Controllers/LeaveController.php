@@ -162,4 +162,25 @@ class LeaveController extends Controller
 
         return view('hr_dashboard.pending_leaves', compact('pendingLeaves', 'manager'));
     }
+
+
+    public function getMonthlyLeaves(Request $request)
+    {
+        $request->validate([
+            'employee_id' => 'required|exists:employees,id',
+            'month' => 'required|integer|min:1|max:12',
+            'year' => 'required|integer|min:2000',
+        ]);
+
+        $leaves = Leave::where('employee_id', $request->employee_id)
+            ->where(function ($query) use ($request) {
+                $query->whereMonth('start_date', $request->month)
+                    ->whereYear('start_date', $request->year)
+                    ->orWhereMonth('end_date', $request->month)
+                    ->whereYear('end_date', $request->year);
+            })
+            ->get(['id', 'start_date', 'end_date', 'status']);
+
+        return response()->json($leaves);
+    }
 }

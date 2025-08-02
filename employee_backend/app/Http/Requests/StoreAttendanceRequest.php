@@ -28,6 +28,13 @@ class StoreAttendanceRequest extends FormRequest
             'employee_id' => 'required|exists:employees,id',
             'date' => 'required|date',
             'status' => 'required|in:present,absent,leave',
+            'check_in' => 'nullable|date_format:H:i',
+            'check_out' => 'nullable|date_format:H:i',
+            'break_in' => 'nullable|date_format:H:i',
+            'break_out' => 'nullable|date_format:H:i',
+            'total_hours' => 'nullable|string|max:20',
+            'day_type' => 'nullable|in:full,half',
+
         ];
     }
 

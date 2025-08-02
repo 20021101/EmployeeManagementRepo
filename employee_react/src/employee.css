@@ -1,11 +1,50 @@
+/* Pollux UI - Elegant Purple Theme */
+
+:root {
+  --primary-color: #6a1b9a;
+  --primary-hover: #4a148c;
+  --background: #f4f1fa;
+  --text-dark: #2e2e2e;
+  --text-light: #888;
+  --border-color: #ddd;
+}
+
 /* Main container */
 .mui-employee-container {
   padding: 24px;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f9f9f9;
+  background-color: var(--background);
+  color: var(--text-dark);
 }
 
-/* Add/Edit Employee Form Layout */
+/* Section Heading */
+.mui-employee-container h2 {
+  color: var(--primary-color);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+/* Toolbar at top (Add button) */
+.mui-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin: 16px 0;
+}
+
+/* Button Override */
+button.MuiButton-contained {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  border-radius: 8px;
+  padding: 6px 16px;
+  transition: background-color 0.3s ease;
+}
+
+button.MuiButton-contained:hover {
+  background-color: var(--primary-hover) !important;
+}
+
+/* Form Layout */
 .employee-form {
   margin-top: 8px;
 }
@@ -24,11 +63,25 @@
   min-width: 220px;
 }
 
-/* Toolbar at top (Add button) */
-.mui-toolbar {
-  display: flex;
-  justify-content: flex-end;
-  margin: 16px 0;
+/* Select fields */
+.MuiInputBase-root {
+  border-radius: 8px !important;
+}
+
+/* Dialog styling */
+.MuiDialogTitle-root {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.MuiDialogContent-root {
+  background-color: #fff;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.MuiDialogActions-root {
+  padding: 16px;
 }
 
 /* Action buttons (Edit/Delete/Assign) */
@@ -36,6 +89,41 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+}
+
+/* Tabs styling */
+.MuiTabs-root {
+  margin-bottom: 16px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.MuiTab-root {
+  text-transform: none !important;
+  font-weight: 500;
+  color: var(--text-light);
+}
+
+.Mui-selected {
+  color: var(--primary-color) !important;
+}
+
+.MuiTabs-indicator {
+  background-color: var(--primary-color) !important;
+}
+
+/* DataGrid overrides */
+.MuiDataGrid-root {
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.MuiDataGrid-columnHeaders {
+  background-color: #eee;
+  color: var(--text-dark);
+  font-weight: 500;
 }
 
 /* Overlay for loader when submitting */
@@ -52,7 +140,31 @@
   z-index: 9999;
 }
 
-/* Tabs spacing */
-.MuiTabs-root {
-  margin-bottom: 16px;
+/* ✅ Responsive Enhancements */
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-col {
+    min-width: 100%;
+  }
+
+  .mui-toolbar {
+    justify-content: center;
+  }
+
+  .action-buttons {
+    justify-content: center;
+  }
+
+  .MuiDialogContent-root {
+    padding: 12px !important;
+  }
+
+  .MuiDialogActions-root {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
 }

@@ -1,37 +1,96 @@
-/* AssignDetails.css */
+:root {
+  --primary-purple: #6f42c1;
+  --primary-dark: #552a9e;
+  --light-purple: #f1e7ff;
+  --accent-bg: #f8f4fc;
+  --text-color: #2c2c2c;
+}
+
+body {
+  background-color: #f3f0fa;
+}
 
 .assign-card {
-  border-radius: 16px;
-  padding: 20px;
+  border-radius: 1.5rem;
   background-color: #fff;
+  overflow: hidden;
+  border: 1px solid #dfc9ff;
+  box-shadow: 0 4px 12px rgba(111, 66, 193, 0.1);
+}
+
+.card-header {
+  background: linear-gradient(135deg, var(--primary-purple), var(--primary-dark));
+  padding: 1.2rem 1.5rem;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
 }
 
 .card-header h5 {
   font-size: 1.25rem;
   font-weight: 600;
+  color: #fff;
+}
+
+.card-body {
+  padding: 2rem;
 }
 
 .card-footer {
+  background-color: var(--light-purple);
+  color: #4b2a69;
   font-size: 0.9rem;
-  padding: 12px;
+  border-top: 1px solid #e3c9fa;
+  padding: 0.75rem;
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
 }
 
-/* Responsive tweaks */
-@media (max-width: 768px) {
-  .assign-card {
-    padding: 16px;
-  }
+.form-label {
+  color: var(--primary-purple);
+  font-weight: 500;
+}
 
-  .card-header h5 {
-    font-size: 1rem;
+.form-select,
+input.form-control {
+  border-radius: 0.7rem;
+  border: 1px solid #d9c4f1;
+  font-size: 1rem;
+}
+
+.form-select:focus,
+input.form-control:focus {
+  border-color: var(--primary-purple);
+  box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
+}
+
+.btn-success {
+  background-color: var(--primary-purple);
+  border-color: var(--primary-purple);
+  font-weight: 500;
+  padding: 0.6rem 1rem;
+  border-radius: 0.7rem;
+}
+
+.btn-success:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1.5rem;
   }
 
   .btn {
     font-size: 0.95rem;
   }
 
-  select.form-select,
-  input.form-control {
+  .form-select,
+  .form-control {
     font-size: 0.95rem;
+  }
+
+  .card-header h5 {
+    font-size: 1rem;
   }
 }

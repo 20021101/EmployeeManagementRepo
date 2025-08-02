@@ -1,14 +1,67 @@
 import React, { useEffect, useState } from 'react';
 import './sidebar.css';
+import { useNavigate } from 'react-router-dom';
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
   const [employee, setEmployee] = useState(null);
+  const navigate = useNavigate();
 
+  // Load employee & activeTab on first mount and redirect
   useEffect(() => {
     const storedEmployee = localStorage.getItem('employee');
+    const storedActiveTab = localStorage.getItem('activeTab') || 'home';
+
     if (storedEmployee) {
       try {
-        setEmployee(JSON.parse(storedEmployee));
+        const parsedEmployee = JSON.parse(storedEmployee);
+        setEmployee(parsedEmployee);
+
+        const role = parsedEmployee.role?.toLowerCase() || '';
+        setActiveTab(storedActiveTab);
+
+        // Redirect based on last active tab
+        switch (storedActiveTab) {
+          case 'home':
+            if (role === 'hr') {
+              navigate('/hr-dashboard');
+            } else {
+              navigate('/employee-dashboard');
+            }
+            break;
+          case 'employee':
+            navigate('/employee-crud');
+            break;
+          case 'attendance':
+            navigate('/attendance');
+            break;
+          case 'leave':
+            navigate('/leave');
+            break;
+          case 'salary':
+            navigate('/salary');
+            break;
+          case 'departments':
+            navigate('/departments');
+            break;
+          case 'designations':
+            navigate('/designations');
+            break;
+          case 'assign':
+            navigate('/employee/1/assign');
+            break;
+          case 'hrreports':
+            navigate('/hrreports');
+            break;
+          case 'analytics':
+            navigate('/hr-analytics');
+            break;
+          case 'mydetails':
+            navigate('/my-details');
+            break;
+          default:
+            navigate('/employee-dashboard');
+            break;
+        }
       } catch (error) {
         console.warn("Invalid employee data in localStorage:", error);
       }
@@ -18,10 +71,54 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
   const role = employee?.role?.toLowerCase() || '';
   const isHRorAdmin = role === 'hr' || role === 'admin';
 
+  // Handle tab click and navigate
   const handleTabClick = (tab) => {
     setActiveTab(tab);
     localStorage.setItem('activeTab', tab);
 
+    switch (tab) {
+      case 'home':
+        if (role === 'hr') {
+          navigate('/hr-dashboard');
+        } else {
+          navigate('/employee-dashboard');
+        }
+        break;
+      case 'employee':
+        navigate('/employee-crud');
+        break;
+      case 'attendance':
+        navigate('/attendance');
+        break;
+      case 'leave':
+        navigate('/leave');
+        break;
+      case 'salary':
+        navigate('/salary');
+        break;
+      case 'departments':
+        navigate('/departments');
+        break;
+      case 'designations':
+        navigate('/designations');
+        break;
+      case 'assign':
+        navigate('/employee/1/assign');
+        break;
+      case 'hrreports':
+        navigate('/hrreports');
+        break;
+      case 'analytics':
+        navigate('/hr-analytics');
+        break;
+      case 'mydetails':
+        navigate('/my-details');
+        break;
+      default:
+        break;
+    }
+
+    // Close mobile sidebar if open
     const sidebar = document.getElementById('sidebarMenuMobile');
     if (sidebar && window.bootstrap?.Offcanvas) {
       try {
@@ -33,6 +130,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     }
   };
 
+  // Navigation items to show
   const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'employee', label: 'Employee' },
@@ -40,16 +138,18 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
     { id: 'leave', label: 'Leave' },
     { id: 'salary', label: 'Salary' },
     ...(isHRorAdmin ? [
-      { id: 'department', label: 'Departments' },
-      { id: 'designation', label: 'Designations' },
+      { id: 'departments', label: 'Departments' },
+      { id: 'designations', label: 'Designations' },
       { id: 'assign', label: 'Assign Details' }
     ] : []),
     ...(role === 'hr' ? [
-      { id: 'hrreports', label: 'HR Reports' }
+      { id: 'hrreports', label: 'HR Reports' },
+      { id: 'analytics', label: 'Analytics' }
     ] : []),
     { id: 'mydetails', label: 'My Details' }
   ];
 
+  // Render nav items
   const renderNavItems = () =>
     navItems.map(tab => (
       <li className="nav-item" key={tab.id}>
@@ -82,10 +182,10 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         id="sidebarMenuMobile"
       >
         <div className="offcanvas-header">
-          <h5 className="offcanvas-title text-white">Dashboard</h5>
+          <h5 className="offcanvas-title">Dashboard</h5>
           <button
             type="button"
-            className="btn-close btn-close-white"
+            className="btn-close"
             data-bs-dismiss="offcanvas"
             aria-label="Close"
           />
@@ -97,7 +197,7 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         </div>
       </div>
 
-      {/* Desktop Sidebar (hidden on small screens) */}
+      {/* Desktop Sidebar */}
       <div className="sidebar-static d-none d-lg-block">
         <div className="sidebar-title">Dashboard</div>
         <ul className="nav flex-column px-3">

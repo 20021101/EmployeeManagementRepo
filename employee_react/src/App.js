@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, } from 'react-router-dom';
 import EmployeeDashboard from './employeeDashboard';
 import Attendance from './attendance';
 import Leave from './leave';
@@ -12,20 +12,25 @@ import MyDetails from './MyDetails';
 import AssignDetails from './AssignDetails';
 import HRDashboard from './HRDashboard';
 import HRReports from './HRReports';
-
+import HRAnalytics from './HRAnalytics';
+import DesignationManager from './DesignationManager';
+import DepartmentManager from './DepartmentManager';
+import SalaryPanel from './SalaryPanel';
 import axios from 'axios';
 import './theme.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
 
 //  Updated layout using Flexbox
 const Layout = ({ handleLogout, activeTab, setActiveTab }) => (
-  <div className="app-layout">
+
+  <div className="app-layout d-flex flex-column flex-lg-row">
     <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-    <div className="main-area">
+    <div className="main-area flex-grow-1">
       <Navbar handleLogout={handleLogout} />
       <div className="content-wrapper">
         <Outlet />
@@ -104,8 +109,10 @@ function App() {
             <Route path="/employee-dashboard" element={<EmployeeDashboard />} />
             <Route path="/attendance" element={<Attendance />} />
             <Route path="/leave" element={<Leave employee={employee} role={employee?.role} />} />
-            <Route path="/salary" element={<div>Salary Component Placeholder</div>} />
+            <Route path="/salary" element={<SalaryPanel employeeId={employee?.id} />} />
             <Route path="/hr-dashboard" element={<HRDashboard />} />
+
+
             <Route
               path="/employee-crud"
               element={
@@ -113,8 +120,11 @@ function App() {
               }
             />
             <Route path="/employee/:id/assign" element={<AssignDetails />} />
+            <Route path="/departments" element={<DepartmentManager />} />
+            <Route path="/designations" element={<DesignationManager />} />
             <Route path="/my-details" element={<MyDetails />} />
             <Route path="/hrreports" element={<HRReports />} />
+            <Route path="/hr-analytics" element={<HRAnalytics />} />
           </Route>
         </Route>
 

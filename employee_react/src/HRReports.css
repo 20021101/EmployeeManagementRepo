@@ -1,5 +1,5 @@
 /* Base Styles */
-.hr-dashboard-container {
+.hrreport.hr-dashboard-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f8fafc;
   min-height: 100vh;
@@ -7,7 +7,7 @@
 }
 
 /* Header Styles */
-.dashboard-header {
+.hrreport-header {
   background-color: #ffffff;     
   border-radius: 10px;     
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);                                                                
@@ -75,7 +75,7 @@
 }
 
 /* Table Styles */
-.data-table-container {
+.hrreport.data-table-container {
   background-color: #ffffff;                        
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);       

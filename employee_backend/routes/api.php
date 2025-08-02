@@ -37,8 +37,10 @@ Route::middleware('throttle:100,1')->group(function () {
     Route::get('/employees/{id}/with-details', [EmployeeController::class, 'showWithRelations']);
     Route::post('/employees/import', [EmployeeController::class, 'import']);
 
-    Route::get('/experience-letter/{employee_id}', [ExperienceLetterController::class, 'generate']);
-    
+    //to download all letters
+    Route::get('/letter/{type}/{id}', [ExperienceLetterController::class, 'generateLetter']);
+
+
 
 
     // Profile Route
@@ -46,7 +48,7 @@ Route::middleware('throttle:100,1')->group(function () {
 });
 
 
-// Login & Logout for Employees
+// Login & Logout for Employees 
 Route::prefix('employee')->group(function () {
     Route::post('/login', [EmployeeAuthController::class, 'login']);
     Route::middleware('auth:sanctum')->post('/logout', [EmployeeAuthController::class, 'logout']);
@@ -59,13 +61,30 @@ Route::prefix('employee')->group(function () {
 });*/
 
 // Attendance Routes
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:employee')->group(function () {
+    Route::get('/attendance/regularization-requests', [AttendanceController::class, 'pendingRegularizations']);
     Route::post('/attendance', [AttendanceController::class, 'store']);
-    Route::get('/attendance/{employee}', [AttendanceController::class, 'index']);
-    Route::get('/attendance/{employee}/{date}', [AttendanceController::class, 'show']);
+    Route::get('/attendance', [AttendanceController::class, 'index']);
+  // Add in api.php
+    Route::post('/attendance/punch-in', [AttendanceController::class, 'punchIn']);
+    Route::post('/attendance/break-in', [AttendanceController::class, 'breakIn']);
+    Route::post('/attendance/break-out', [AttendanceController::class, 'breakOut']);
+    Route::post('/attendance/punch-out', [AttendanceController::class, 'punchOut']);
+    //Route::get('/attendance/weekly/{employeeId}', [AttendanceController::class, 'weeklyLogs']);
+
+    Route::post('/attendance/regularize', [AttendanceController::class, 'regularize']);
+    Route::post('/attendance/regularize/{id}/approve', [AttendanceController::class, 'approveRegularization']);
     Route::put('/attendance/{id}', [AttendanceController::class, 'update']);
     Route::delete('/attendance/{id}', [AttendanceController::class, 'destroy']);
-    
+    //Route::get('/attendance/{employee}', [AttendanceController::class, 'show']);
+    Route::get('/employee/attendance/{id}/range', [AttendanceController::class, 'getAttendanceRange']);
+    Route::get('/holidays', [AttendanceController::class, 'getHolidays']);
+
+    Route::get('/me', function (Request $request) {
+        return $request->user();
+    });
+
+
 
     // Leave Routes
     Route::middleware('auth:sanctum')->group(function () {
@@ -79,10 +98,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/leaves/{id}/status', [LeaveController::class, 'updateStatus']);
         Route::get('/leaves', [LeaveController::class, 'index']);
         Route::get('/leaves/show/{id}', [LeaveController::class, 'show']);
-        
-
-       
-
+        Route::get('/employee-leaves', [LeaveController::class, 'getMonthlyLeaves']);
 
 
         //salary routes
@@ -105,7 +121,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/designations/{id}', [DesignationController::class, 'update']);
         Route::delete('/designations/{id}', [DesignationController::class, 'destroy']);
     });
-     
+
 
     //salary routes
     Route::post('/salary/calculate', [SalaryController::class, 'calculateSalary']);
@@ -113,6 +129,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //monthly report route
     Route::middleware('auth:sanctum')->get('/hr/monthly-report', [HRReportController::class, 'getMonthlyReport']);
-   
-
+    Route::get('/hr/monthly-summary', [HRReportController::class, 'getMonthlySummary']);
 });

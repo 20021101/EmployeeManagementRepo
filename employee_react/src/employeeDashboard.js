@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import Sidebar from './sidebar';
+
 import Employee from './employee';
 import Attendance from './attendance';
 import Leave from './leave';
@@ -56,7 +56,6 @@ const EmployeeDashboard = () => {
 
   return (
     <div className="container-fluid p-0">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="dashboard-wrapper">
         <div className="dashboard-header">
           <h4>Employee Dashboard</h4>
